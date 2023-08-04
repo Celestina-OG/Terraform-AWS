@@ -8,10 +8,6 @@ resource "aws_nat_gateway" "gw1" {
   # Subnet ID of the subnet in which to place the internet-gateway
   subnet_id = aws_subnet.public_1.id
 
-  # To ensure proper ordering, it is recommended to add an explicit dependency
-  # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.main]
-
   # Tags to assign to the resource
   tags = {
     Name = "NAT 1"
@@ -24,10 +20,6 @@ resource "aws_nat_gateway" "gw2" {
 
   # Subnet ID of the subnet in which to place the internet-gateway
   subnet_id = aws_subnet.public_2.id
-
-  # To ensure proper ordering, it is recommended to add an explicit dependency
-  # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.main]
 
   # Tags to assign to the resource
   tags = {
