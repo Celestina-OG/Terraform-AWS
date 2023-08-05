@@ -1,0 +1,26 @@
+# ClusterRole allows you to grant access accross all namespace, while role alone binds one single namespace
+# https://kubernetes.io/docs/reference/access-authn-authz/rbac/
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: reader
+rules:
+- apiGroups: ["*"]
+  resources: ["deployments", "configmaps", "pods", "secrets", "services"]
+  verbs: ["get", "list", "watch"]
+---
+# eks-console-dashboard-full-access-binding
+# https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: reader
+subjects:
+- kind: Group
+  name: reader
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: reader
+  apiGroup: rbac.authorization.k8s.io
